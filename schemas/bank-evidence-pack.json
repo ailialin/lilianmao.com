@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LiLianMao Bank Evidence Pack Schema",
+  "description": "Standardized schema for linking cross-border trade documentation with on-chain crypto settlements.",
+  "type": "object",
+  "properties": {
+    "trade_id": {
+      "type": "string",
+      "description": "Unique trade identification hash"
+    },
+    "compliance_status": {
+      "type": "string",
+      "enum": ["PASSED", "FLAGGED", "PENDING_REVIEW"]
+    },
+    "kyt_screening": {
+      "type": "object",
+      "properties": {
+        "tx_hash": { "type": "string" },
+        "risk_score": { "type": "number", "minimum": 0, "maximum": 100 },
+        "sanctions_cleared": { "type": "boolean" }
+      },
+      "required": ["tx_hash", "risk_score", "sanctions_cleared"]
+    },
+    "trade_documents": {
+      "type": "object",
+      "properties": {
+        "invoice_number": { "type": "string" },
+        "contract_ref": { "type": "string" },
+        "customs_declaration_id": { "type": "string" }
+      },
+      "required": ["invoice_number", "contract_ref"]
+    }
+  },
+  "required": ["trade_id", "compliance_status", "kyt_screening", "trade_documents"]
+}
